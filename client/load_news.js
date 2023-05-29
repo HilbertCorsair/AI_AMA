@@ -1,21 +1,11 @@
-let corsProxy = "https://cors-anywhere.herokuapp.com/";
-let rssFeed = "https://www.federalreserve.gov/feeds/press_all.xml";
-
-fetch(corsProxy + rssFeed)
-    .then(response => response.text())
-    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then(data => console.log(data));
-
-fetch(corsProxy + rssFeed)
-    .then(response => response.text())
-    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+fetch('/api/fetch-rss')
+    .then(response => response.json())
     .then(data => {
-        let items = data.querySelectorAll("item");
+        let items = data.rss.channel.item;
         let html = ``;
         items.forEach(el => {
-            let title = el.querySelector("title").textContent;
-            let link = el.querySelector("link").textContent;
-            //let thumbnail = "https://via.placeholder.com/150";  Placeholder thumbnail
+            let title = el.title;
+            let link = el.link;
 
             html += `
             <div class="news-item">
@@ -23,5 +13,5 @@ fetch(corsProxy + rssFeed)
             </div>
             `;
         });
-        document.getElementById('newsContainer').innerHTML = html;  // or append to another HTML element
+        document.getElementById('newsContainer').innerHTML = html;
     });
