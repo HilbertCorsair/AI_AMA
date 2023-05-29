@@ -1,21 +1,36 @@
-@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300;400;500;700;800;900&display=swap");
+@font-face {
+  font-family: 'Allura';
+  src: url('.assets/Allura/Allura-Regular.woff2') format('woff2');
+  }
+
+@font-face {
+  font-family: 'Cutive';
+  src: url('./assets/Cutive_Mono/CutiveMono-Regular.woff2') format('woff2');
+  }
+
+@font-face {
+  font-family: 'Allerta';
+  src: url('./assets/Allerta_Stencil/AllertaStencil-Regular.woff2') format('woff2')
+  }
+
+@font-face {
+  font-family: 'Voltaire';
+  src: url('./assets/Voltaire/Voltaire-Regular.woff2') format('woff2');
+  }
+@font-face {
+  font-family: 'Arsenal';
+  src: url('./assets/Arsenal/Arsenal-Regular.woff2') format('woff2');
+  }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Alegreya Sans", sans-serif;
-}
-
-body {
-  background: #343541;
 }
 
 #app {
   width: 100vw;
   height: 100vh;
-  background: #343541;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,6 +53,9 @@ body {
   padding-bottom: 20px;
   scroll-behavior: smooth;
 }
+h1 {
+  font-family: "Voltaire";
+}
 
 /* hides scrollbar */
 #chat_container::-webkit-scrollbar {
@@ -50,7 +68,7 @@ body {
 }
 
 .ai {
-  background: #40414F;
+  font-family: Cutive;
 }
 
 .chat {
@@ -62,6 +80,39 @@ body {
   flex-direction: row;
   align-items: flex-start;
   gap: 10px;
+}
+.flex-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px;
+  border:2px solid #10a37f;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.news-item {
+  text-align: left;
+  margin-bottom: 20px;
+  
+}
+
+.news-item a {
+  font-family: Arsenal;
+  text-decoration: none;
+  color: black;
+}
+
+.news-item a:hover {
+  color: grey;
+}
+
+/* For tablets and small desktops */
+@media (min-width: 768px) {
+  .news-item {
+      flex-basis: 45%;
+  }
 }
 
 .profile {
@@ -117,8 +168,7 @@ form {
   max-width: 1280px;
   margin: 0 auto;
   padding: 10px;
-  background: #40414F;
-
+  border:2px solid #10a37f;
   display: flex;
   flex-direction: row;
   gap: 10px;

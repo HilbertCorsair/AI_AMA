@@ -7,7 +7,21 @@
     <title>Testing AI APP</title>
     <link rel = "stylesheet" href="style.css">
   </head>
+
   <body>
+
+    <div class="flex-container"> 
+      <div>
+        <h1 class="div_title">Latest FED news</h1>
+      </div>
+      <div  id ="fed_image">
+        <img src="./assets/fed.jpg" alt="FED press conference">
+        </div>
+
+      <div  id="newsContainer"> 
+      </div>
+    </div>
+
     <div id="app">
       <div id="chat_container"></div>
       <form>
@@ -17,6 +31,10 @@
         
       </form>
     </div>
+
+    <script src="load_news.js"></script>
+
+
     <script type="module" src="/script.js"></script>
   </body>
 </html>
