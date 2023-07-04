@@ -32,9 +32,35 @@
       </form>
     </div>
 
-    <script src="load_news.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <script>
+      fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.federalreserve.gov%2Ffeeds%2Fpress_all.xml')
+          .then(response => response.json())
+          .then(data => {
+              const container = document.getElementById('newsContainer');
+              data.items.forEach(item => {
+                  const a = document.createElement('a');
+                  a.href = item.link;
+                  a.textContent = item.title;
+                  container.appendChild(a);
+                  container.appendChild(document.createElement('br'));
+              });
+          })
+          .catch(error => console.error('Error:', error));
+    </script>
 
 
     <script type="module" src="/script.js"></script>
+  
   </body>
+
 </html>

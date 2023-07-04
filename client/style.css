@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Allura';
-  src: url('.assets/Allura/Allura-Regular.woff2') format('woff2');
+  src: url('./assets/Allura/Allura-Regular.woff2') format('woff2');
   }
 
 @font-face {
@@ -28,12 +28,27 @@
   box-sizing: border-box;
 }
 
+.flex-container {
+  max-width: 75%;
+  margin: 0 0;
+  padding: 10px;
+  border:2px solid #10a37f;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 #app {
+  /*
   width: 100vw;
   height: 100vh;
+  */
+  max-width: 75%;
+  margin: 0 0;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /*align-items: center;*/
   justify-content: space-between;
 }
 
@@ -67,8 +82,8 @@ h1 {
   padding: 15px;
 }
 
-.ai {
-  font-family: Cutive;
+.ai div .message{
+  font-family: Arsenal;
 }
 
 .chat {
@@ -81,31 +96,27 @@ h1 {
   align-items: flex-start;
   gap: 10px;
 }
-.flex-container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 10px;
-  border:2px solid #10a37f;
-  display: flex;
+
+
+#newsContainer a {
+  max-width: 74%;
+  max-height: auto;
+  margin-bottom: 3px;
+  font-family: Voltaire;
+  font-size: 1.2rem;
+
+}
+
+#fed_image {
+  display: inline-flex;
   flex-direction: column;
-  gap: 10px;
+
 }
 
-.news-item {
-  text-align: left;
-  margin-bottom: 20px;
+#fed_image img {
+  max-width: 25%;
+  max-height: auto;
   
-}
-
-.news-item a {
-  font-family: Arsenal;
-  text-decoration: none;
-  color: black;
-}
-
-.news-item a:hover {
-  color: grey;
 }
 
 /* For tablets and small desktops */
@@ -183,6 +194,7 @@ textarea {
   border-radius: 5px;
   border: none;
   outline: none;
+  font-family: Cutive;
 }
 
 button {

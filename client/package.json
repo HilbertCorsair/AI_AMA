@@ -10,5 +10,11 @@
   },
   "devDependencies": {
     "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "nodemon": "^2.0.22",
+    "openai": "^3.3.0"
   }
 }
