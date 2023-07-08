@@ -21,6 +21,11 @@
   font-family: 'Arsenal';
   src: url('./assets/Arsenal/Arsenal-Regular.woff2') format('woff2');
   }
+  
+@font-face {
+  font-family: 'Orbitron' ;
+  src: url('./assets/Orbitron/Orbitron-VariableFont_wght.ttf');
+}
 
 * {
   margin: 0;
@@ -28,8 +33,13 @@
   box-sizing: border-box;
 }
 
+body {
+  width: 100vw;
+  align-items: center;
+}
+
 .flex-container {
-  max-width: 75%;
+  max-width: 100%;
   margin: 0 0;
   padding: 10px;
   border:2px solid #10a37f;
@@ -43,9 +53,7 @@
   width: 100vw;
   height: 100vh;
   */
-  max-width: 75%;
-  margin: 0 0;
-  padding: 10px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   /*align-items: center;*/
@@ -57,6 +65,7 @@
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  margin: 0;
 
   display: flex;
   flex-direction: column;
@@ -68,8 +77,9 @@
   padding-bottom: 20px;
   scroll-behavior: smooth;
 }
+
 h1 {
-  font-family: "Voltaire";
+  font-family: "Arsenal";
 }
 
 /* hides scrollbar */
@@ -104,6 +114,7 @@ h1 {
   margin-bottom: 3px;
   font-family: Voltaire;
   font-size: 1.2rem;
+  text-decoration: none;
 
 }
 
@@ -113,10 +124,58 @@ h1 {
 
 }
 
+#h_space {
+  max-width: 15%;
+  max-height: auto;
+  overflow: hidden;
+}
+
+banner{
+  background-color: black;
+  display: flex;
+  max-height: 155px;
+  align-items: center;
+}
+
+
+banner h1{
+  padding-left: 6%;
+  padding-right: 2%;
+  font-size: 4rem;
+  font-family: Orbitron;
+  color: white;
+  display: inline;
+  align-self: center;
+}
+
+
+ul.banner-menu {
+  padding-left: 6%;
+}
+
+ul.banner-menu li {
+  display: inline-block;
+  font-family: Arsenal;
+  font-size: 1.2rem;
+  color:white;
+}
+
+ul.banner-menu li:not(:last-child)::after {
+  content: "|";
+  margin: 0 5px; /* Adjust the spacing as needed */
+  color: white; /* Adjust the color as needed */
+}
+
+ul.banner-menu li:first-child::before,
+ul.banner-menu li:last-child::after {
+  content: "|";
+  margin: 0 5px; /* Adjust the spacing as needed */
+  color: white; /* Adjust the color as needed */
+}
+
 #fed_image img {
   max-width: 25%;
   max-height: auto;
-  
 }
 
 /* For tablets and small desktops */
@@ -169,14 +228,14 @@ h1 {
   scrollbar-width: none;
 }
 
-/* hides scrollbar */
+ hides scrollbar */
 .message::-webkit-scrollbar {
   display: none;
 }
 
 form {
   width: 100%;
-  max-width: 1280px;
+  /*max-width: 1280px;*/
   margin: 0 auto;
   padding: 10px;
   border:2px solid #10a37f;

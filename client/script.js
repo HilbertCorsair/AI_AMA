@@ -89,7 +89,7 @@ const handleSubmit = async (e) => {
 
     //https://ama-tibi.onrender.com
 
-    const response = await fetch('https://ama-tibi.onrender.com', {
+    const response = await fetch('http://localhost:5000', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
