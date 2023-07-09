@@ -27,6 +27,7 @@
   src: url('./assets/Orbitron/Orbitron-VariableFont_wght.ttf');
 }
 
+
 * {
   margin: 0;
   padding: 0;
@@ -39,13 +40,11 @@ body {
 }
 
 .flex-container {
-  max-width: 100%;
+  width: 100%;
   margin: 0 0;
-  padding: 10px;
   border:2px solid #10a37f;
   display: inline-flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 #app {
@@ -125,7 +124,7 @@ h1 {
 }
 
 #h_space {
-  max-width: 15%;
+  max-width: 12%;
   max-height: auto;
   overflow: hidden;
 }
@@ -151,6 +150,7 @@ banner h1{
 
 ul.banner-menu {
   padding-left: 6%;
+  align-self: center
 }
 
 ul.banner-menu li {
@@ -266,4 +266,28 @@ button {
 form img {
   width: 30px;
   height: 30px;
+}
+
+
+@media only screen and (max-width: 1112px) {
+  
+  banner h1{
+    padding-left: 3%;
+    padding-right: 2%;
+    font-size: 1.2rem;
+    font-family: Orbitron;
+    color: white;
+    display: inline;
+    align-self: center;
+  }
+
+
+  ul.banner-menu li {
+    display: inline-block;
+    font-family: Arsenal;
+    font-size: 1rem;
+    color:white;
+  }
+
+
 }
