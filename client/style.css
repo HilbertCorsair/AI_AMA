@@ -178,12 +178,6 @@ ul.banner-menu li:last-child::after {
   max-height: auto;
 }
 
-/* For tablets and small desktops */
-@media (min-width: 768px) {
-  .news-item {
-      flex-basis: 45%;
-  }
-}
 
 .profile {
   width: 36px;
@@ -266,6 +260,12 @@ button {
 form img {
   width: 30px;
   height: 30px;
+}
+
+@media (max-width: 428px) {
+  banner {
+    flex-direction: column;
+  }
 }
 
 
