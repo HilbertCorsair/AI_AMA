@@ -39,12 +39,13 @@ body {
   align-items: center;
 }
 
-.flex-container {
-  width: 100%;
-  margin: 0 0;
-  border:2px solid #10a37f;
-  display: inline-flex;
-  flex-direction: column;
+#greeting{
+  padding: 20% 20%;
+}
+
+#intro{
+  font-family: Allura;
+  font-size: 2rem;
 }
 
 #app {
@@ -107,21 +108,7 @@ h1 {
 }
 
 
-#newsContainer a {
-  max-width: 74%;
-  max-height: auto;
-  margin-bottom: 3px;
-  font-family: Voltaire;
-  font-size: 1.2rem;
-  text-decoration: none;
 
-}
-
-#fed_image {
-  display: inline-flex;
-  flex-direction: column;
-
-}
 
 #h_space {
   max-width: 12%;
@@ -153,12 +140,27 @@ ul.banner-menu {
   align-self: center
 }
 
-ul.banner-menu li {
+ul.banner-menu li{
   display: inline-block;
+}
+
+ul.banner-menu li a{
+  display: inline-block;
+  text-decoration: none;
   font-family: Arsenal;
   font-size: 1.2rem;
   color:white;
 }
+
+#menu {
+  display: inline-block;
+  font-family: Arsenal;
+  font-size: 1.2rem;
+  color:white;
+  text-decoration: none;
+}
+
+
 
 ul.banner-menu li:not(:last-child)::after {
   content: "|";
@@ -171,11 +173,6 @@ ul.banner-menu li:last-child::after {
   content: "|";
   margin: 0 5px; /* Adjust the spacing as needed */
   color: white; /* Adjust the color as needed */
-}
-
-#fed_image img {
-  max-width: 25%;
-  max-height: auto;
 }
 
 
@@ -282,7 +279,7 @@ form img {
   }
 
 
-  ul.banner-menu li {
+  ul.banner-menu li a{
     display: inline-block;
     font-family: Arsenal;
     font-size: 1rem;

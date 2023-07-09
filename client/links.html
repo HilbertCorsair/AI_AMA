@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testing AI APP</title>
+    <link rel = "stylesheet" href="style_links.css">
+  </head>
+
+  <body>
+    <banner>
+    <img src="./assets/sd2.webp" alt="hilbertspace" id = 'h_space'>
+    <h1>Dan's labyrinth</h1>
+
+    <ul class="banner-menu">
+        <li><a class="menu" href="index.html">Home</a></li>
+        <li><a class="menu" href="links.html">Links</a></li>
+        <li><a class="menu" href="thoughts.html">Thoughts</a></li>
+        <li><a class="menu" href="about.html">About</a></li>
+        <li><a class="menu" href="act.html">Act</a></li>
+      </ul>
+
+    </banner>
+
+    <div class="flex-container"> 
+        <div>
+          <h1 class="div_title">Latest FED news</h1>
+        </div>
+        <div  id ="fed_image">
+          <img src="./assets/fed.jpg" alt="FED press conference">
+          </div>
+  
+        <div  id="newsContainer"> 
+        </div>
+      </div>
+
+      <script>
+        fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.federalreserve.gov%2Ffeeds%2Fpress_all.xml')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('newsContainer');
+                data.items.forEach(item => {
+                    const a = document.createElement('a');
+                    a.href = item.link;
+                    a.textContent = item.title;
+                    container.appendChild(a);
+                    container.appendChild(document.createElement('br'));
+                });
+            })
+            .catch(error => console.error('Error:', error));
+      </script>
+
+    
+  
+  </body>
+
+</html>
