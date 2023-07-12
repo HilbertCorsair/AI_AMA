@@ -15,6 +15,7 @@ const openai = new OpenAIApi(configuration);
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public'));
 
 app.get('/', async (req, res) => {
   res.status(200).send({
