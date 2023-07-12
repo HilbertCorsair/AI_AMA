@@ -19,6 +19,9 @@ app.use(express.static('public'));
 app.get('/about', (req, res) => {
   res.sendFile(__dirname + '/about.html');
 });
+app.get('/links', (req, res) => {
+  res.sendFile(__dirname + '/links.html');
+});
 
 app.get('/', async (req, res) => {
   res.status(200).send({
