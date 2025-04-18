@@ -11,14 +11,15 @@ const anthropic = new Anthropic({
 
 const app = express()
 
-// Configure CORS to allow requests from your client domain
+// Configure CORS to allow requests from all your domains
 app.use(cors({
   origin: [
-    'https://ai-ekwe2zc0c-hilbertcorsairs-projects.vercel.app',
     'https://ai-ama.vercel.app',
-    'http://localhost:5173' // for local development
+    'https://ai-ama-git-prod-hilbertcorsairs-projects.vercel.app',
+    'https://ai-jwyglq82b-hilbertcorsairs-projects.vercel.app',
+    'http://localhost:5173'
   ],
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true,
   optionsSuccessStatus: 204
 }));

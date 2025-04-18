@@ -9,12 +9,20 @@ let loadInterval
 // Get the current hostname
 const currentHostname = window.location.hostname;
 
-// Determine the API URL based on the current hostname
-const API_URL = currentHostname.includes('localhost') 
-  ? 'http://localhost:3000/api'
-  : `https://${currentHostname}/api`;
+// List of all possible domains
+const ALLOWED_DOMAINS = [
+  'ai-ama.vercel.app',
+  'ai-ama-git-prod-hilbertcorsairs-projects.vercel.app',
+  'ai-jwyglq82b-hilbertcorsairs-projects.vercel.app'
+];
 
-console.log('Current API_URL:', API_URL);
+// Determine the API URL
+const API_URL = currentHostname.includes('localhost')
+  ? 'http://localhost:3000/api'
+  : `https://ai-ama.vercel.app/api`;  // Use the custom domain as the primary API endpoint
+
+console.log('Current hostname:', currentHostname);
+console.log('Using API URL:', API_URL);
 
 function loader(element) {
     element.textContent = ''
