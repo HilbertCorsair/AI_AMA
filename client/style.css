@@ -343,7 +343,7 @@ ul.banner-menu li:last-child::after {
   scrollbar-width: none;
 }
 
- hides scrollbar */
+/* hides scrollbar */
 .message::-webkit-scrollbar {
   display: none;
 }
