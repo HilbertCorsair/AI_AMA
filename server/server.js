@@ -11,28 +11,11 @@ const anthropic = new Anthropic({
 
 const app = express()
 
-// Configure CORS
-app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    'https://ai-ama.vercel.app',
-    'https://your-vercel-domain.vercel.app' // Add your actual Vercel domain
-  ],
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type']
-}));
-
+app.use(cors());
 app.use(express.json())
 
-// Handle preflight requests
-app.options('*', cors());
-
-app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Server is running' })
-})
-
-app.post('/', async (req, res) => {
+// Handle both root and /api paths
+const handlePrompt = async (req, res) => {
   try {
     const prompt = req.body.prompt
     console.log('Received prompt:', prompt)
@@ -59,7 +42,17 @@ app.post('/', async (req, res) => {
     console.error('Error:', error)
     res.status(500).json({ error: error.message || 'Internal server error' })
   }
-})
+}
+
+// Handle both root and /api paths
+app.post('/', handlePrompt)
+app.post('/api', handlePrompt)
+
+// Add error logging
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

@@ -6,9 +6,7 @@ const chatContainer = document.querySelector('#chat_container')
 
 let loadInterval
 
-const API_URL = import.meta.env.MODE === 'development' 
-    ? 'http://localhost:5000'
-    : '/api'; // This will route to your server through Vercel's proxy
+const API_URL = '/api';
 
 console.log('Current API_URL:', API_URL); // Add this for debugging
 
@@ -74,7 +72,7 @@ const handleSubmit = async (e) => {
     const data = new FormData(form)
     const prompt = data.get('prompt')
 
-    // Log the actual URL being used
+    // Debug logging
     console.log('Sending request to:', API_URL);
 
     chatContainer.innerHTML += chatStripe(false, prompt)
@@ -108,12 +106,12 @@ const handleSubmit = async (e) => {
         } else {
             const errorData = await response.text()
             console.error('Server error:', response.status, errorData)
-            messageDiv.innerHTML = `Server error: ${response.status}. ${errorData}`
+            messageDiv.innerHTML = `Server error: ${response.status}. Please try again.`
         }
     } catch (error) {
         clearInterval(loadInterval)
         console.error('Request error:', error)
-        messageDiv.innerHTML = "Network error: " + error.message
+        messageDiv.innerHTML = "Network error: Could not connect to the server. Please try again."
     }
 }
 
