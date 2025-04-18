@@ -83,11 +83,7 @@ const handleSubmit = async (e) => {
     // specific message div 
     const messageDiv = document.getElementById(uid)
 
-    // messageDiv.innerHTML = "..."
     loader(messageDiv)
-
-
-    //https://ama-tibi.onrender.com , 'http://localhost:5000'
 
     const response = await fetch("https://ama-tibi.onrender.com", {
         method: 'POST',
@@ -110,7 +106,7 @@ const handleSubmit = async (e) => {
     } else {
         const err = await response.text()
 
-        messageDiv.innerHTML = "We have a problem !"
+        messageDiv.innerHTML = "We have a problem!"
         alert(err)
     }
 }

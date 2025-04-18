@@ -1,27 +1,39 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
-import { Configuration, OpenAIApi } from "openai";
+import Anthropic from '@anthropic-ai/sdk'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+import path from 'path'
+import fs from 'fs'
 
-dotenv.config();
-const configuration = new Configuration({
-    organization: "org-pB15yRN3A8XpNJXGh89xUHbV",
-    apiKey: process.env.OPENAI_API_KEY
-    
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const envPath = path.join(__dirname, '.env')
+
+// Debug information
+console.log('Current directory:', __dirname)
+console.log('.env file exists:', fs.existsSync(envPath))
+console.log('.env file content:', fs.readFileSync(envPath, 'utf8'))
+
+// Load environment variables
+dotenv.config({ path: envPath })
+
+console.log('ANTHROPIC_API_KEY loaded:', !!process.env.ANTHROPIC_API_KEY)
+
+if (!process.env.ANTHROPIC_API_KEY) {
+  console.error('ANTHROPIC_API_KEY is not set in environment variables');
+  process.exit(1);
+}
+
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
-console.log(process.env.OPENAI_API_KEY);
-const openai = new OpenAIApi(configuration);
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'));
-app.get('/about', (req, res) => {
-  res.sendFile(__dirname + '/about.html');
-});
-app.get('/links', (req, res) => {
-  res.sendFile(__dirname + '/links.html');
-});
 
 app.get('/', async (req, res) => {
   res.status(200).send({
@@ -33,18 +45,17 @@ app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: `${prompt}`,
-      temperature: 0.35, // Higher values means the model will take more risks.
-      max_tokens: 3000, // The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4096).
-      top_p: 1, // alternative to sampling with temperature, called nucleus sampling
-      frequency_penalty: 0.5, // Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
-      presence_penalty: 0, // Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
+    const completion = await anthropic.messages.create({
+      model: "claude-3-7-sonnet-20250219",
+      max_tokens: 1024,
+      messages: [{
+        role: "user",
+        content: prompt
+      }],
     });
 
     res.status(200).send({
-      bot: response.data.choices[0].text
+      bot: completion.content[0].text
     });
 
   } catch (error) {
@@ -53,4 +64,4 @@ app.post('/', async (req, res) => {
   }
 })
 
-app.listen(5000, () => console.log('AI server started on http://localhost:5000'))
+app.listen(5000, () => console.log('AI-AMA'))
