@@ -3,26 +3,31 @@ import * as dotenv from 'dotenv'
 import cors from 'cors'
 import Anthropic from '@anthropic-ai/sdk'
 
+dotenv.config()  // Make sure this is called
+
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
 const app = express()
 
-app.use(cors({
-  origin: '*',  // Be more permissive with CORS in development
-  methods: ['GET', 'POST', 'OPTIONS'],
-  credentials: true
-}))
-
+app.use(cors())
 app.use(express.json())
 
-// Health check endpoint
-app.get('/api', (req, res) => {
+// Root endpoint
+app.get('/', (req, res) => {
   res.status(200).json({ message: 'Server is running' })
 })
 
-// Main API endpoint
-app.post('/api', async (req, res) => {
+// API endpoint
+app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt
     console.log('Received prompt:', prompt)
+
+    if (!prompt) {
+      return res.status(400).json({ error: 'Prompt is required' })
+    }
 
     const completion = await anthropic.messages.create({
       model: "claude-3-7-sonnet-20250219",

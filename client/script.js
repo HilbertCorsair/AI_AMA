@@ -81,7 +81,7 @@ const handleSubmit = async (e) => {
     loader(messageDiv)
 
     try {
-        const response = await fetch("https://ai-ama.vercel.app/api", {  // Changed endpoint
+        const response = await fetch("https://ai-ama.vercel.app", {  // Updated URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ const handleSubmit = async (e) => {
         } else {
             const errorData = await response.text()
             console.error('Server error:', response.status, errorData)
-            messageDiv.innerHTML = "Server error: " + response.status
+            messageDiv.innerHTML = `Server error: ${response.status}. ${errorData}`
         }
     } catch (error) {
         clearInterval(loadInterval)
