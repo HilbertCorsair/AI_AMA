@@ -31,9 +31,19 @@ const anthropic = new Anthropic({
 });
 
 const app = express()
-app.use(cors())
+
+// Configure CORS
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://ai-ama.vercel.app'],
+  methods: ['GET', 'POST'],
+  credentials: true
+}))
+
 app.use(express.json())
-app.use(express.static('public'));
+app.use(express.static('public'))
+
+// Add OPTIONS handling
+app.options('*', cors())
 
 app.get('/', async (req, res) => {
   res.status(200).send({
@@ -44,6 +54,7 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
+    console.log('Received prompt:', prompt); // Add logging
 
     const completion = await anthropic.messages.create({
       model: "claude-3-7-sonnet-20250219",
@@ -54,14 +65,17 @@ app.post('/', async (req, res) => {
       }],
     });
 
+    console.log('Anthropic response:', completion); // Add logging
+
     res.status(200).send({
       bot: completion.content[0].text
     });
 
   } catch (error) {
-    console.error(error)
-    res.status(500).send(error || 'We have a problem.');
+    console.error('Error details:', error); // Add detailed error logging
+    res.status(500).send(error.message || 'We have a problem.');
   }
 })
 
-app.listen(5000, () => console.log('AI-AMA'))
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
