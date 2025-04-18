@@ -134,3 +134,17 @@ form.addEventListener('keyup', (e) => {
     }
 })
 
+/*Current hostname: ai-28rvc51i3-hilbertcorsairs-projects.vercel.app
+index-80550608.js:1 Using API URL: https://ai-28rvc51i3-hilbertcorsairs-projects.vercel.app/api
+index-80550608.js:13 Making request to: https://ai-28rvc51i3-hilbertcorsairs-projects.vercel.app/api
+index-80550608.js:13 With prompt: Is it solved? 
+
+/api:1 
+            
+            
+           Failed to load resource: the server responded with a status of 404 ()
+index-80550608.js:13 Response status: 404
+index-80550608.js:13 Response headers: Array(9)
+hook.js:608 Server error details: The page could not be found
+
+NOT_FOUND*/
