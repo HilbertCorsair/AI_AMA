@@ -14,7 +14,11 @@ const app = express()
 app.use(cors());
 app.use(express.json())
 
-// Handle both root and /api paths
+// Add a root route handler
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Server is running' });
+});
+
 const handlePrompt = async (req, res) => {
   try {
     const prompt = req.body.prompt
@@ -44,8 +48,7 @@ const handlePrompt = async (req, res) => {
   }
 }
 
-// Handle both root and /api paths
-app.post('/', handlePrompt)
+// Handle API routes
 app.post('/api', handlePrompt)
 
 // Add error logging
@@ -54,5 +57,5 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+// Export the Express app
+export default app
