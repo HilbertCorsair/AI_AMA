@@ -6,9 +6,16 @@ const chatContainer = document.querySelector('#chat_container')
 
 let loadInterval
 
-const API_URL = '/api';
+// For development testing, you can log all possible URLs to find the correct one
+const POSSIBLE_URLS = [
+    '/api',
+    'https://ai-ama.vercel.app/api'
+];
 
-console.log('Current API_URL:', API_URL); // Add this for debugging
+// Let's use the absolute URL to ensure it works in all environments
+const API_URL = 'https://ai-ama.vercel.app/api';
+
+console.log('Current API_URL:', API_URL);
 
 function loader(element) {
     element.textContent = ''
@@ -72,8 +79,9 @@ const handleSubmit = async (e) => {
     const data = new FormData(form)
     const prompt = data.get('prompt')
 
-    // Debug logging
-    console.log('Sending request to:', API_URL);
+    // Add more detailed logging
+    console.log('Making request to:', API_URL);
+    console.log('With prompt:', prompt);
 
     chatContainer.innerHTML += chatStripe(false, prompt)
     form.reset()
@@ -96,6 +104,10 @@ const handleSubmit = async (e) => {
             })
         });
 
+        // Add response status logging
+        console.log('Response status:', response.status);
+        console.log('Response headers:', [...response.headers.entries()]);
+
         clearInterval(loadInterval)
         messageDiv.innerHTML = " "
 
@@ -105,7 +117,7 @@ const handleSubmit = async (e) => {
             typeText(messageDiv, parsedData)
         } else {
             const errorData = await response.text()
-            console.error('Server error:', response.status, errorData)
+            console.error('Server error details:', errorData)
             messageDiv.innerHTML = `Server error: ${response.status}. Please try again.`
         }
     } catch (error) {
