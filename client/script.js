@@ -85,7 +85,8 @@ const handleSubmit = async (e) => {
 
     loader(messageDiv)
 
-    const response = await fetch("https://ama-tibi.onrender.com", {
+    // Update this URL to your Vercel deployment URL
+    const response = await fetch("https://ai-ama.vercel.app/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
