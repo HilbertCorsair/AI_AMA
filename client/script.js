@@ -6,14 +6,13 @@ const chatContainer = document.querySelector('#chat_container')
 
 let loadInterval
 
-// For development testing, you can log all possible URLs to find the correct one
-const POSSIBLE_URLS = [
-    '/api',
-    'https://ai-ama.vercel.app/api'
-];
+// Get the current hostname
+const currentHostname = window.location.hostname;
 
-// Let's use the absolute URL to ensure it works in all environments
-const API_URL = 'https://ai-ama.vercel.app/api';
+// Determine the API URL based on the current hostname
+const API_URL = currentHostname.includes('localhost') 
+  ? 'http://localhost:3000/api'
+  : `https://${currentHostname}/api`;
 
 console.log('Current API_URL:', API_URL);
 
@@ -133,3 +132,4 @@ form.addEventListener('keyup', (e) => {
         handleSubmit(e)
     }
 })
+

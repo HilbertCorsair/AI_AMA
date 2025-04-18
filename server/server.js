@@ -11,7 +11,18 @@ const anthropic = new Anthropic({
 
 const app = express()
 
-app.use(cors());
+// Configure CORS to allow requests from your client domain
+app.use(cors({
+  origin: [
+    'https://ai-ekwe2zc0c-hilbertcorsairs-projects.vercel.app',
+    'https://ai-ama.vercel.app',
+    'http://localhost:5173' // for local development
+  ],
+  methods: ['GET', 'POST'],
+  credentials: true,
+  optionsSuccessStatus: 204
+}));
+
 app.use(express.json())
 
 // Add a root route handler
@@ -57,5 +68,4 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// Export the Express app
 export default app
