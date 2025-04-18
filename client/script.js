@@ -6,6 +6,12 @@ const chatContainer = document.querySelector('#chat_container')
 
 let loadInterval
 
+const API_URL = import.meta.env.MODE === 'development' 
+    ? 'http://localhost:5000'
+    : '/api'; // This will route to your server through Vercel's proxy
+
+console.log('Current API_URL:', API_URL); // Add this for debugging
+
 function loader(element) {
     element.textContent = ''
 
@@ -68,9 +74,10 @@ const handleSubmit = async (e) => {
     const data = new FormData(form)
     const prompt = data.get('prompt')
 
-    // user's chatstripe
-    chatContainer.innerHTML += chatStripe(false, prompt)
+    // Log the actual URL being used
+    console.log('Sending request to:', API_URL);
 
+    chatContainer.innerHTML += chatStripe(false, prompt)
     form.reset()
 
     const uid = genUId()
@@ -81,7 +88,7 @@ const handleSubmit = async (e) => {
     loader(messageDiv)
 
     try {
-        const response = await fetch("https://ai-ama.vercel.app", {  // Updated URL
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv'
 import cors from 'cors'
 import Anthropic from '@anthropic-ai/sdk'
 
-dotenv.config()  // Make sure this is called
+dotenv.config()
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -11,15 +11,27 @@ const anthropic = new Anthropic({
 
 const app = express()
 
-app.use(cors())
+// Configure CORS
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://ai-ama.vercel.app',
+    'https://your-vercel-domain.vercel.app' // Add your actual Vercel domain
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
+
 app.use(express.json())
 
-// Root endpoint
+// Handle preflight requests
+app.options('*', cors());
+
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Server is running' })
 })
 
-// API endpoint
 app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt
