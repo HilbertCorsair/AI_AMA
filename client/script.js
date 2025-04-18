@@ -66,49 +66,47 @@ const handleSubmit = async (e) => {
     e.preventDefault()
 
     const data = new FormData(form)
+    const prompt = data.get('prompt')
 
     // user's chatstripe
-    chatContainer.innerHTML += chatStripe(false, data.get('prompt'))
+    chatContainer.innerHTML += chatStripe(false, prompt)
 
-    // to clear the textarea input 
     form.reset()
 
-    // bot's chatstripe
     const uid = genUId()
     chatContainer.innerHTML += chatStripe(true, " ", uid)
-
-    // to focus scroll to the bottom 
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
-    // specific message div 
     const messageDiv = document.getElementById(uid)
-
     loader(messageDiv)
 
-    // Update this URL to your Vercel deployment URL
-    const response = await fetch("https://ai-ama.vercel.app/", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            prompt: data.get('prompt')
-        })
-    })
+    try {
+        const response = await fetch("https://ai-ama.vercel.app/api", {  // Changed endpoint
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                prompt: prompt
+            })
+        });
 
-    clearInterval(loadInterval)
-    messageDiv.innerHTML = " "
+        clearInterval(loadInterval)
+        messageDiv.innerHTML = " "
 
-    if (response.ok) {
-        const data = await response.json();
-        const parsedData = data.bot.trim() // trims any trailing spaces/'\n' 
-
-        typeText(messageDiv, parsedData)
-    } else {
-        const err = await response.text()
-
-        messageDiv.innerHTML = "We have a problem!"
-        alert(err)
+        if (response.ok) {
+            const data = await response.json();
+            const parsedData = data.bot.trim()
+            typeText(messageDiv, parsedData)
+        } else {
+            const errorData = await response.text()
+            console.error('Server error:', response.status, errorData)
+            messageDiv.innerHTML = "Server error: " + response.status
+        }
+    } catch (error) {
+        clearInterval(loadInterval)
+        console.error('Request error:', error)
+        messageDiv.innerHTML = "Network error: " + error.message
     }
 }
 
