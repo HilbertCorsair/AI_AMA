@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 const handlePrompt = async (req, res) => {
   try {
     const prompt = req.body.prompt
-    console.log('Received prompt:', prompt)
+    console.log('Received prompt (handlePrompt called):', prompt)
 
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' })
