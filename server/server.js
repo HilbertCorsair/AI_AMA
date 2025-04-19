@@ -1,3 +1,4 @@
+
 import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
@@ -13,11 +14,14 @@ const app = express()
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
+    if (!origin) {
+      return callback(null, true);
+    }
     
     if (
       origin.endsWith('vercel.app') || 
-      origin === 'http://localhost:5173'
+      origin === 'http://localhost:5173' ||
+      origin === 'http://localhost:3000'
     ) {
       return callback(null, true);
     }

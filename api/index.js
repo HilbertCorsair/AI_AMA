@@ -1,3 +1,4 @@
+
 import * as dotenv from 'dotenv'
 import Anthropic from '@anthropic-ai/sdk'
 import cors from 'cors'
@@ -8,8 +9,27 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// Helper function to initialize CORS
-const initCORS = cors();
+// Updated CORS configuration to handle all Vercel preview URLs
+const initCORS = cors({
+  origin: (origin, callback) => {
+    if (!origin) {
+      return callback(null, true);
+    }
+    
+    if (
+      origin.endsWith('vercel.app') || 
+      origin === 'http://localhost:5173' ||
+      origin === 'http://localhost:3000'
+    ) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
+  methods: ['GET', 'POST', 'OPTIONS'],
+  credentials: true,
+  optionsSuccessStatus: 204
+});
 
 // Vercel serverless function
 export default async function handler(req, res) {
