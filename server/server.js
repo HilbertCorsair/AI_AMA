@@ -22,8 +22,10 @@ app.use(cors({
     const allowedOrigins = [
       'http://localhost:5173',
       'http://localhost:3000',
-      'https://ai-ama.vercel.app', // Your Vercel frontend URL
-      'https://ai-ama-vercel.app'  // Alternative Vercel URL if used
+      'https://ai-ama.vercel.app',
+      'https://ai-ama-vercel.app',
+      'https://your-app.onrender.com',  // Add your Render.com domain
+      'https://ama-tibi.onrender.com'   // Add your specific Render.com domain
     ];
     
     if (allowedOrigins.includes(origin)) {
