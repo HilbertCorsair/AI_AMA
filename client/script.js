@@ -73,7 +73,6 @@ const handleSubmit = async (e) => {
     const data = new FormData(form)
     const prompt = data.get('prompt')
 
-    // Simplified logging
     console.log('With prompt:', prompt);
 
     chatContainer.innerHTML += chatStripe(false, prompt)
@@ -87,7 +86,7 @@ const handleSubmit = async (e) => {
     loader(messageDiv)
 
     try {
-        const response = await fetch("https://ama-tibi.onrender.com", {
+        const response = await fetch("https://ai-ama.vercel.app/api", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,7 +96,6 @@ const handleSubmit = async (e) => {
             })
         });
 
-        // Add response status logging
         console.log('Response status:', response.status);
         console.log('Response headers:', [...response.headers.entries()]);
 
