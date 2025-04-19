@@ -90,7 +90,7 @@ const handleSubmit = async (e) => {
     loader(messageDiv)
 
     try {
-        const response = await fetch("https://your-app.onrender.com", {
+        const response = await fetch("https://ama-tibi.onrender.com", {  // Update this URL to your actual Render.com endpoint
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
