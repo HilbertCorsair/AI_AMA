@@ -2,13 +2,6 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["api/**"]
-      }
-    },
-    {
       "src": "client/package.json",
       "use": "@vercel/static-build",
       "config": {
@@ -18,22 +11,11 @@
   ],
   "routes": [
     {
-      "src": "/api",
-      "dest": "api/index.js"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "api/index.js"
-    },
-    {
       "handle": "filesystem"
     },
     {
       "src": "/(.*)",
       "dest": "/client/dist/$1"
     }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/$1" }
   ]
 }
