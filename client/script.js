@@ -7,9 +7,9 @@ const chatContainer = document.querySelector('#chat_container')
 let loadInterval
 
 // Determine the API URL - use the same domain as the client
-const API_URL = window.location.origin + '/api';
+// const API_URL = window.location.origin + '/api';
 
-console.log('Using API URL:', API_URL);
+// console.log('Using API URL:', API_URL);
 
 function loader(element) {
     element.textContent = ''
@@ -73,8 +73,7 @@ const handleSubmit = async (e) => {
     const data = new FormData(form)
     const prompt = data.get('prompt')
 
-    // Add more detailed logging
-    console.log('Making request to:', API_URL);
+    // Simplified logging
     console.log('With prompt:', prompt);
 
     chatContainer.innerHTML += chatStripe(false, prompt)

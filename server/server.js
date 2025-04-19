@@ -11,13 +11,10 @@ const anthropic = new Anthropic({
 
 const app = express()
 
-// Configure CORS to allow requests from all your domains
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
-    // Allow all subdomains of vercel.app and localhost
     if (
       origin.endsWith('vercel.app') || 
       origin === 'http://localhost:5173'
@@ -34,15 +31,10 @@ app.use(cors({
 
 app.use(express.json())
 
-// Add a root route handler
-app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Server is running' });
-});
-
 const handlePrompt = async (req, res) => {
   try {
     const prompt = req.body.prompt
-    console.log('Received prompt (handlePrompt called):', prompt)
+    console.log('Received prompt:', prompt)
 
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' })
@@ -68,11 +60,6 @@ const handlePrompt = async (req, res) => {
   }
 }
 
-// Handle API routes
-app.post('/api', handlePrompt)
+app.post('/', handlePrompt)
 
-// Add error logging
-app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
-  res.status(500).json({ error: 'Internal server error' });
-});
+export default app
