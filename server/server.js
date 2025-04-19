@@ -22,7 +22,8 @@ app.use(cors({
     const allowedOrigins = [
       'http://localhost:5173',
       'http://localhost:3000',
-      'https://your-production-domain.com' // Add your production domain if needed
+      'https://ai-ama.vercel.app', // Your Vercel frontend URL
+      'https://ai-ama-vercel.app'  // Alternative Vercel URL if used
     ];
     
     if (allowedOrigins.includes(origin)) {
