@@ -1,4 +1,3 @@
-
 import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
@@ -6,23 +5,27 @@ import Anthropic from '@anthropic-ai/sdk'
 
 dotenv.config()
 
+const app = express()
+
+// Configure Anthropic client
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const app = express()
-
+// Middleware
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) {
       return callback(null, true);
     }
     
-    if (
-      origin.endsWith('vercel.app') || 
-      origin === 'http://localhost:5173' ||
-      origin === 'http://localhost:3000'
-    ) {
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'https://your-production-domain.com' // Add your production domain if needed
+    ];
+    
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     
@@ -35,6 +38,7 @@ app.use(cors({
 
 app.use(express.json())
 
+// Define handlePrompt function before using it
 const handlePrompt = async (req, res) => {
   try {
     const prompt = req.body.prompt
@@ -64,6 +68,15 @@ const handlePrompt = async (req, res) => {
   }
 }
 
-app.post('/', handlePrompt)
+// Routes
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
+
+app.post('/api', handlePrompt);
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server is running ...`));
 
 export default app

@@ -69,7 +69,11 @@ function chatStripe(AI, val, uid) {
 
 const handleSubmit = async (e) => {
     e.preventDefault()
-
+    
+    // Disable form while processing
+    const submitButton = form.querySelector('button');
+    submitButton.disabled = true;
+    
     const data = new FormData(form)
     const prompt = data.get('prompt')
 
@@ -115,6 +119,9 @@ const handleSubmit = async (e) => {
         clearInterval(loadInterval)
         console.error('Request error:', error)
         messageDiv.innerHTML = "Network error: Could not connect to the server. Please try again."
+    } finally {
+        // Re-enable form
+        submitButton.disabled = false;
     }
 }
 
