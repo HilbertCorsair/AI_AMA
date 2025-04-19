@@ -73,7 +73,7 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 });
 
-app.post('/api', handlePrompt);
+app.post('/', handlePrompt);
 
 // Start server
 const PORT = process.env.PORT || 5000;

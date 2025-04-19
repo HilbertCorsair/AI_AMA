@@ -90,7 +90,7 @@ const handleSubmit = async (e) => {
     loader(messageDiv)
 
     try {
-        const response = await fetch("https://ai-ama.vercel.app/api", {
+        const response = await fetch("https://ai-ama.vercel.app", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
