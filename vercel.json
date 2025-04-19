@@ -2,15 +2,26 @@
   "version": 2,
   "builds": [
     {
+      "src": "api/index.js",
+      "use": "@vercel/node",
+      "config": {
+        "cache": false
+      }
+    },
+    {
       "src": "client/package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist",
-        "zeroConfig": true
+        "cache": false
       }
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
     {
       "handle": "filesystem"
     },
@@ -20,6 +31,6 @@
     }
   ],
   "build": {
-    "cache": "false"
+    "cache": false
   }
 }
